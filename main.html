@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Gerador de Nuvem de Palavras</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="pagina">
+
+    <main class="container">
+
+        <h1>Gerador de Nuvem de Palavras</h1>
+
+        <p>
+            Introduza o seu texto e configure
+            a nuvem de palavras.
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+
+            <label>Texto:</label>
+
+            <textarea name="texto" required>{{ texto }}</textarea>
+
+            <label>Palavras a remover:</label>
+
+            <input
+                type="text"
+                name="stopwords"
+                value="{{ removidas }}"
+            >
+
+            <label>Número máximo de palavras:</label>
+
+            <input
+                type="number"
+                name="max_words"
+                min="1"
+                max="200"
+                value="{{ max_words }}"
+            >
+
+            <button type="submit">
+                Gerar nuvem de palavras
+            </button>
+
+        </form>
+
+        {% if imagem_url %}
+
+        <section class="resultado">
+
+            <h2>Resultado</h2>
+
+            <img
+                src="{{ imagem_url }}"
+                alt="Nuvem de palavras"
+            >
+
+            <a href="/descarregar" class="botao">
+                Descarregar imagem PNG
+            </a>
+
+        </section>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>
