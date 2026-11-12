@@ -1,0 +1,24 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  background-image: url("https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fnutritionsource.hsph.harvard.edu%2Ffood-features%2Fbananas%2F&ved=0CBcQjRxqFwoTCOjN15mTgpgDFQAAAAAdAAAAABAF&opi=89978449");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 24pt;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select,
+.caixa-texto {
+  background-color: #fff;
+  border: 1px solid #1e88e5;
+  box-sizing: border-box;
+}
