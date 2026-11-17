@@ -1,4 +1,4 @@
-#Projeto_Multimédia
+# Projeto_Multimédia
 
 Nome da Aplicação / Dashboard Web: Gerador de Nuvem de Palavras
 Disciplina: Oficina de Multimédia - 12.º Ano
@@ -7,7 +7,7 @@ Autor: Guilhermo Leandro
 Turma: A3
 Link da Aplicação Web: -
 
-##1. Visão Geral do Projeto
+## 1. Visão Geral do Projeto
 
 Descrição:
 
@@ -15,7 +15,7 @@ Descrição:
 
   O principal objetivo é facilitar a análise e representação visual de textos, destacando as palavras mais frequentes através de uma imagem PNG que pode ser posteriormente descarregada.
 
-##2. Estrutura do Código e Funcionalidades Integradas
+## 2. Estrutura do Código e Funcionalidades Integradas
 
   Para o desenvolvimento deste projeto foram utilizados conhecimentos adquiridos nas fichas práticas da disciplina, complementados com algumas funcionalidades desenvolvidas com o auxílio de Inteligência Artificial.
 
@@ -32,19 +32,19 @@ Descrição:
 
   Foi também utilizada a tecnologia Flask para estabelecer a ligação entre a interface HTML e o processamento realizado em Python.
 
-##3. Registo de Utilização da IA
+## 3. Registo de Utilização da IA
 
   Durante o desenvolvimento foi utilizada Inteligência Artificial como ferramenta de apoio à programação, permitindo esclarecer dúvidas, corrigir erros e melhorar a organização do código.
 
-##1. Prompt para conversão Web/HTML
+## 1. Prompt para conversão Web/HTML
 
   "Com base numa aplicação desenvolvida em Python, cria uma interface HTML utilizando Flask e Jinja2. Pretendo uma página simples e funcional, com um formulário para introdução de texto, campos de configuração e uma área onde seja possível apresentar o resultado gerado."
 
-##2. Prompt para ampliação e construção de funcionalidades
+## 2. Prompt para ampliação e construção de funcionalidades
 
   "Adiciona funcionalidades ao gerador de nuvens de palavras, permitindo ao utilizador escolher o número máximo de palavras, introduzir palavras a remover e descarregar o resultado final como imagem PNG. Mantém a ligação entre o HTML e o Python através do Flask."
 
-##3. Dificuldades e erros corrigidos com a IA
+## 3. Dificuldades e erros corrigidos com a IA
 
   Durante a construção da aplicação surgiram algumas dificuldades relacionadas com a comunicação entre os ficheiros Python e HTML, principalmente na transmissão dos dados introduzidos pelo utilizador.
 
@@ -52,7 +52,7 @@ Descrição:
 
   Com o auxílio da IA foi possível identificar problemas na estrutura do código, corrigir referências aos ficheiros estáticos e compreender melhor o funcionamento dos formulários HTML e dos pedidos POST.
 
-##4. Otimização de Layout
+## 4. Otimização de Layout
 
   Foi pedido à Inteligência Artificial que ajudasse a melhorar a apresentação visual da aplicação, procurando obter uma interface simples, organizada e intuitiva.
 
@@ -66,7 +66,7 @@ Descrição:
 
 O objetivo foi criar uma experiência de utilização agradável, sem excesso de elementos visuais.
 
-##4. Estrutura de Ficheiros do Repositório
+## 4. Estrutura de Ficheiros do Repositório
 
   A organização do projeto foi realizada de forma a separar a lógica de programação, a interface gráfica e os recursos visuais.
 -app.py – Ficheiro principal responsável pelo funcionamento da aplicação e pelo processamento dos dados através de Python e Flask.
@@ -74,7 +74,7 @@ O objetivo foi criar uma experiência de utilização agradável, sem excesso de
 -static/estilos.css – Folha de estilos responsável pela formatação visual da aplicação.
 -README.md – Documento com a descrição do projeto, funcionalidades e registo do desenvolvimento.
 -static/ – Pasta destinada aos recursos estáticos utilizados pela aplicação.
-##5. Reflexão Crítica e Aprendizagem
+## 5. Reflexão Crítica e Aprendizagem
 
   O desenvolvimento deste projeto permitiu consolidar conhecimentos relacionados com programação web, nomeadamente HTML, CSS e Python. Uma das partes que correu melhor foi a construção do formulário e a organização da interface, uma vez que permitiram criar uma aplicação relativamente simples de utilizar.
 
