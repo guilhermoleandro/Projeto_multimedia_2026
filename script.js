@@ -172,3 +172,195 @@ const progressFill = document.getElementById("progress-fill");
 const progressText = document.getElementById("progress-text");
 
 const feedback = document.getElementById("feedback");
+
+// ==========================================
+// INICIAR QUESTIONÁRIO
+// ==========================================
+
+startButton.addEventListener("click", () => {
+
+    quizIntro.classList.add("hidden");
+    quizContent.classList.remove("hidden");
+    quizResults.classList.add("hidden");
+
+    currentQuestion = 0;
+    score = 0;
+    selectedAnswer = null;
+    answered = false;
+
+    loadQuestion();
+
+});
+
+
+// ==========================================
+// MOSTRAR PERGUNTA
+// ==========================================
+
+function loadQuestion() {
+
+    selectedAnswer = null;
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    // Atualizar texto da pergunta
+    questionText.textContent = q.question;
+
+    questionNumber.textContent =
+        `PERGUNTA ${String(currentQuestion + 1).padStart(2, "0")}`;
+
+    // Atualizar contador
+    questionCounter.textContent =
+        `Pergunta ${currentQuestion + 1} / ${questions.length}`;
+
+    // Atualizar progresso
+    const progress =
+        (currentQuestion / questions.length) * 100;
+
+    progressFill.style.width = `${progress}%`;
+    progressText.textContent = `${Math.round(progress)}%`;
+
+    // Limpar opções anteriores
+    optionsContainer.innerHTML = "";
+
+    // Limpar feedback
+    feedback.textContent = "";
+    feedback.className = "feedback";
+
+    // Desativar botão seguinte
+    nextButton.disabled = true;
+
+    nextButton.textContent =
+        currentQuestion === questions.length - 1
+            ? "Ver resultados →"
+            : "Próxima pergunta →";
+
+
+    // Criar opções de resposta
+    q.options.forEach((option, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+
+        // Criar letra da opção
+        const letter = document.createElement("span");
+
+        letter.className = "option-letter";
+
+        letter.textContent =
+            String.fromCharCode(65 + index);
+
+        // Criar texto da opção
+        const label = document.createElement("span");
+
+        label.textContent = option;
+
+        // Juntar elementos
+        button.appendChild(letter);
+        button.appendChild(label);
+
+        // Evento de seleção
+        button.addEventListener("click", () => {
+
+            selectAnswer(index);
+
+        });
+
+        optionsContainer.appendChild(button);
+
+    });
+
+}
+
+
+// ==========================================
+// SELECIONAR E CORRIGIR RESPOSTA
+// ==========================================
+
+function selectAnswer(index) {
+
+    // Impedir selecionar mais do que uma resposta
+    if (answered) return;
+
+    selectedAnswer = index;
+    answered = true;
+
+    const q = questions[currentQuestion];
+
+    const optionButtons =
+        optionsContainer.querySelectorAll(".option");
+
+
+    // Atualizar aspeto das opções
+    optionButtons.forEach((button, i) => {
+
+        button.disabled = true;
+
+        // Identificar resposta correta
+        if (i === q.answer) {
+            button.classList.add("correct");
+        }
+
+        // Identificar resposta errada selecionada
+        if (i === selectedAnswer && selectedAnswer !== q.answer) {
+            button.classList.add("wrong");
+        }
+
+        // Identificar opção selecionada
+        if (i === selectedAnswer) {
+            button.classList.add("selected");
+        }
+
+    });
+
+
+    // Verificar resposta
+    if (selectedAnswer === q.answer) {
+
+        score++;
+
+        feedback.textContent =
+            "✓ Resposta correta! " + q.explanation;
+
+        feedback.classList.add("correct-text");
+
+    } else {
+
+        feedback.textContent =
+            "✕ Resposta incorreta. " + q.explanation;
+
+        feedback.classList.add("wrong-text");
+
+    }
+
+
+    // Ativar botão para avançar
+    nextButton.disabled = false;
+
+}
+
+
+// ==========================================
+// AVANÇAR PARA A PRÓXIMA PERGUNTA
+// ==========================================
+
+nextButton.addEventListener("click", () => {
+
+    // Impedir avançar sem responder
+    if (!answered) return;
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        loadQuestion();
+
+    } else {
+
+        showResults();
+
+    }
+
+});
