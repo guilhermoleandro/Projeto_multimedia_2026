@@ -364,3 +364,133 @@ nextButton.addEventListener("click", () => {
     }
 
 });
+
+// ==========================================
+// APRESENTAR RESULTADOS
+// ==========================================
+
+function showResults() {
+
+    // Esconder questionário e mostrar resultados
+    quizContent.classList.add("hidden");
+    quizResults.classList.remove("hidden");
+
+    // Atualizar progresso para 100%
+    progressFill.style.width = "100%";
+    progressText.textContent = "100%";
+
+    // Calcular percentagem
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
+    // Atualizar pontuação
+    document.getElementById("final-score").textContent = score;
+
+    document.getElementById("correct-count").textContent = score;
+
+    document.getElementById("wrong-count").textContent =
+        questions.length - score;
+
+    document.getElementById("percentage").textContent =
+        percentage + "%";
+
+
+    // Definir mensagem de desempenho
+    let title;
+    let description;
+    let icon;
+
+    if (percentage >= 90) {
+
+        title = "Excelente trabalho!";
+
+        description =
+            "Demonstraste um excelente domínio dos conceitos de Multimédia. Continua assim!";
+
+        icon = "🏆";
+
+    } else if (percentage >= 70) {
+
+        title = "Muito bom!";
+
+        description =
+            "Tens bons conhecimentos de Multimédia. Estás no bom caminho!";
+
+        icon = "🌟";
+
+    } else if (percentage >= 50) {
+
+        title = "Bom esforço!";
+
+        description =
+            "Já tens algumas bases, mas ainda podes melhorar os teus conhecimentos.";
+
+        icon = "📚";
+
+    } else {
+
+        title = "Continua a aprender!";
+
+        description =
+            "Não desistas! Aproveita para rever os conteúdos e tenta novamente.";
+
+        icon = "💡";
+
+    }
+
+
+    // Mostrar mensagem final
+    document.getElementById("result-title").textContent = title;
+
+    document.getElementById("result-description").textContent =
+        description;
+
+    document.getElementById("result-icon").textContent = icon;
+
+    // Voltar ao topo da página
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+// ==========================================
+// REINICIAR QUESTIONÁRIO
+// ==========================================
+
+restartButton.addEventListener("click", () => {
+
+    // Repor valores iniciais
+    currentQuestion = 0;
+    score = 0;
+    selectedAnswer = null;
+    answered = false;
+
+    // Esconder resultados
+    quizResults.classList.add("hidden");
+
+    // Mostrar introdução
+    quizIntro.classList.remove("hidden");
+
+    // Esconder conteúdo do questionário
+    quizContent.classList.add("hidden");
+
+    // Repor barra de progresso
+    progressFill.style.width = "0%";
+    progressText.textContent = "0%";
+
+    // Voltar ao topo da página
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+
+// ==========================================
+// FIM DO QUESTIONÁRIO
+// ==========================================
+
+console.log("Multimédia Dashboard - Questionário carregado com sucesso!");
