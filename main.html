@@ -3,86 +3,145 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gerador de Nuvem de Palavras</title>
+    <title>Multimédia Quiz</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='estilos.css') }}">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-<div class="pagina">
+    <header class="navbar">
+        <div class="nav-content">
+            <div class="brand">
+                <span class="brand-icon">M</span>
+                <span>Multimédia Quiz</span>
+            </div>
+
+            <div class="nav-info">
+                <span class="status-dot"></span>
+                Projeto Escolar
+            </div>
+        </div>
+    </header>
 
     <main class="container">
 
-        <h1>Gerador de Nuvem de Palavras</h1>
+        <section class="hero">
+            <div class="eyebrow">
+                <span>OFICINA DE MULTIMÉDIA</span>
+                <span class="separator">/</span>
+                <span>12.º ANO</span>
+            </div>
 
-        <p>
-            Introduza o seu texto e configure
-            a nuvem de palavras.
-        </p>
+            <h1>Testa os teus conhecimentos.</h1>
 
-        {% with messages = get_flashed_messages() %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {% endwith %}
+            <p>
+                Responde a 12 perguntas sobre o mundo da Multimédia
+                e descobre quanto sabes sobre esta área.
+            </p>
+        </section>
 
-        <form method="POST">
+        <section class="quiz-card" id="quiz">
 
-            <label>Texto:</label>
+            <div class="quiz-header">
+                <div>
+                    <span class="section-label">QUESTIONÁRIO</span>
+                    <h2>Conhecimentos de Multimédia</h2>
+                </div>
 
-            <textarea name="texto" required>{{ texto }}</textarea>
+                <span class="question-counter" id="counter">
+                    1 / 12
+                </span>
+            </div>
 
-            <label>Palavras a remover:</label>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Progresso</span>
+                    <span id="progress-text">0%</span>
+                </div>
 
-            <input
-                type="text"
-                name="stopwords"
-                value="{{ removidas }}"
-            >
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
 
-            <label>Número máximo de palavras:</label>
+            <div class="question-area">
+                <span class="question-number" id="question-number">
+                    PERGUNTA 01
+                </span>
 
-            <input
-                type="number"
-                name="max_words"
-                min="1"
-                max="200"
-                value="{{ max_words }}"
-            >
+                <h3 id="question-text">
+                    A carregar pergunta...
+                </h3>
 
-            <button type="submit">
-                Gerar nuvem de palavras
-            </button>
+                <div class="options" id="options"></div>
 
-        </form>
+                <p id="feedback" class="feedback"></p>
+            </div>
 
-        {% if imagem_url %}
+            <div class="quiz-footer">
+                <span id="answered-info">0 respostas selecionadas</span>
 
-        <section class="resultado">
-
-            <h2>Resultado</h2>
-
-            <img
-                src="{{ imagem_url }}"
-                alt="Nuvem de palavras"
-            >
-
-            <a href="/descarregar" class="botao">
-                Descarregar imagem PNG
-            </a>
+                <button id="next-button" disabled>
+                    Próxima pergunta →
+                </button>
+            </div>
 
         </section>
 
-        {% endif %}
+        <section class="result-card hidden" id="results">
+
+            <div class="result-icon" id="result-icon">🏆</div>
+
+            <span class="section-label">QUESTIONÁRIO CONCLUÍDO</span>
+
+            <h2 id="result-title">Excelente trabalho!</h2>
+
+            <div class="score">
+                <span id="final-score">0</span>
+                <span class="score-total">/ 12</span>
+            </div>
+
+            <p id="result-description"></p>
+
+            <div class="result-details">
+                <div>
+                    <strong id="correct-count">0</strong>
+                    <span>Corretas</span>
+                </div>
+
+                <div>
+                    <strong id="wrong-count">0</strong>
+                    <span>Incorretas</span>
+                </div>
+
+                <div>
+                    <strong id="percentage">0%</strong>
+                    <span>Percentagem</span>
+                </div>
+            </div>
+
+            <button class="restart-button" id="restart-button">
+                ↻ Repetir questionário
+            </button>
+
+        </section>
+
+        <footer>
+            <p>
+                Desenvolvido no âmbito da disciplina de
+                Oficina de Multimédia · 2026/2027
+            </p>
+
+            <p class="footer-small">
+                Projeto educativo · Multimédia Quiz
+            </p>
+        </footer>
 
     </main>
-
-</div>
 
 </body>
 </html>
