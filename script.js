@@ -1,4 +1,9 @@
 
+// ==========================================
+// QUESTIONÁRIO MULTIMÉDIA
+// ==========================================
+
+// Lista de perguntas
 const questions = [
     {
         question: "O que significa o conceito de Multimédia?",
@@ -134,236 +139,36 @@ const questions = [
     }
 ];
 
+
+// ==========================================
+// VARIÁVEIS DO QUESTIONÁRIO
+// ==========================================
+
 let currentQuestion = 0;
 let score = 0;
 let selectedAnswer = null;
 let answered = false;
 
-const quiz = document.getElementById("quiz");
-const results = document.getElementById("results");
+
+// ==========================================
+// ELEMENTOS HTML
+// ==========================================
+
+const quizIntro = document.getElementById("quiz-intro");
+const quizContent = document.getElementById("quiz-content");
+const quizResults = document.getElementById("quiz-results");
+
+const startButton = document.getElementById("start-quiz");
+const nextButton = document.getElementById("next-button");
+const restartButton = document.getElementById("restart-quiz");
 
 const questionText = document.getElementById("question-text");
 const questionNumber = document.getElementById("question-number");
+const questionCounter = document.getElementById("question-counter");
+
 const optionsContainer = document.getElementById("options");
 
-const counter = document.getElementById("counter");
 const progressFill = document.getElementById("progress-fill");
 const progressText = document.getElementById("progress-text");
 
-const nextButton = document.getElementById("next-button");
 const feedback = document.getElementById("feedback");
-
-const answeredInfo = document.getElementById("answered-info");
-
-// Mostrar uma pergunta
-
-function loadQuestion() {
-
-    selectedAnswer = null;
-    answered = false;
-
-    const q = questions[currentQuestion];
-
-    questionText.textContent = q.question;
-
-    questionNumber.textContent =
-        `PERGUNTA ${String(currentQuestion + 1).padStart(2, "0")}`;
-
-    counter.textContent =
-        `${currentQuestion + 1} / ${questions.length}`;
-
-    const progress = (currentQuestion / questions.length) * 100;
-
-    progressFill.style.width = `${progress}%`;
-    progressText.textContent = `${Math.round(progress)}%`;
-
-    optionsContainer.innerHTML = "";
-
-    feedback.textContent = "";
-    feedback.className = "feedback";
-
-    answeredInfo.textContent = "0 respostas selecionadas";
-
-    nextButton.disabled = true;
-
-    nextButton.textContent =
-        currentQuestion === questions.length - 1
-            ? "Ver resultados →"
-            : "Próxima pergunta →";
-
-    q.options.forEach((option, index) => {
-
-        const button = document.createElement("button");
-
-        button.className = "option";
-
-        const letter = document.createElement("span");
-        letter.className = "option-letter";
-        letter.textContent = String.fromCharCode(65 + index);
-
-        const label = document.createElement("span");
-        label.textContent = option;
-
-        button.appendChild(letter);
-        button.appendChild(label);
-
-        button.addEventListener("click", () => {
-            selectAnswer(index);
-        });
-
-        optionsContainer.appendChild(button);
-    });
-}
-
-// Selecionar e corrigir resposta
-
-function selectAnswer(index) {
-
-    if (answered) return;
-
-    selectedAnswer = index;
-    answered = true;
-
-    const q = questions[currentQuestion];
-
-    const optionButtons =
-        optionsContainer.querySelectorAll(".option");
-
-    optionButtons.forEach((button, i) => {
-
-        button.disabled = true;
-
-        if (i === q.answer) {
-            button.classList.add("correct");
-        }
-
-        if (i === selectedAnswer && selectedAnswer !== q.answer) {
-            button.classList.add("wrong");
-        }
-
-        if (i === selectedAnswer) {
-            button.classList.add("selected");
-        }
-    });
-
-    if (selectedAnswer === q.answer) {
-
-        score++;
-
-        feedback.textContent =
-            "✓ Resposta correta! " + q.explanation;
-
-        feedback.classList.add("correct-text");
-
-    } else {
-
-        feedback.textContent =
-            "✕ Resposta incorreta. " + q.explanation;
-
-        feedback.classList.add("wrong-text");
-    }
-
-    answeredInfo.textContent = "Resposta registada";
-
-    nextButton.disabled = false;
-}
-
-// Avançar no questionário
-
-nextButton.addEventListener("click", () => {
-
-    if (!answered) return;
-
-    if (currentQuestion < questions.length - 1) {
-
-        currentQuestion++;
-        loadQuestion();
-
-    } else {
-
-        showResults();
-    }
-});
-
-// Apresentar resultados
-
-function showResults() {
-
-    quiz.classList.add("hidden");
-    results.classList.remove("hidden");
-
-    progressFill.style.width = "100%";
-    progressText.textContent = "100%";
-
-    const percentage =
-        Math.round((score / questions.length) * 100);
-
-    document.getElementById("final-score").textContent = score;
-
-    document.getElementById("correct-count").textContent = score;
-
-    document.getElementById("wrong-count").textContent =
-        questions.length - score;
-
-    document.getElementById("percentage").textContent =
-        percentage + "%";
-
-    let title;
-    let description;
-    let icon;
-
-    if (percentage >= 90) {
-
-        title = "Excelente trabalho!";
-        description = "Demonstraste um excelente domínio dos conceitos de Multimédia. Continua assim!";
-        icon = "🏆";
-
-    } else if (percentage >= 70) {
-
-        title = "Muito bom!";
-        description = "Tens bons conhecimentos de Multimédia. Estás no bom caminho!";
-        icon = "🌟";
-
-    } else if (percentage >= 50) {
-
-        title = "Bom esforço!";
-        description = "Já tens algumas bases, mas ainda podes melhorar os teus conhecimentos.";
-        icon = "📚";
-
-    } else {
-
-        title = "Continua a aprender!";
-        description = "Não desistas! Aproveita para rever os conteúdos e tenta novamente.";
-        icon = "💡";
-    }
-
-    document.getElementById("result-title").textContent = title;
-
-    document.getElementById("result-description").textContent =
-        description;
-
-    document.getElementById("result-icon").textContent = icon;
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-// Recomeçar questionário
-
-document.getElementById("restart-button").addEventListener("click", () => {
-
-    currentQuestion = 0;
-    score = 0;
-    selectedAnswer = null;
-    answered = false;
-
-    results.classList.add("hidden");
-    quiz.classList.remove("hidden");
-
-    loadQuestion();
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// Iniciar aplicação
-
-loadQuestion();
